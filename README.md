@@ -6,5 +6,5 @@ Features:
 * format a int to a String with leading zeros (minimal length)
 * random String generator
 * insert or replace a char in a String
-* Iterate through Strings ()
+* Iterate through Strings
 * Acess the WWW with post and get requests
