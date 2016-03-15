@@ -7,4 +7,5 @@ Features:
 * random String generator
 * insert or replace a char in a String
 * Iterate through Strings
-* Acess the WWW with post and get requests
+* Access the WWW with post and get requests
+* Calculate Levenshteindistance 
