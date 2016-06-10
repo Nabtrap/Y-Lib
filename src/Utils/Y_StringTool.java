@@ -1,22 +1,40 @@
 package Utils;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Random;
 
 public class Y_StringTool {
 
-	public static String replace(String s, char ch, int place) {
+	private static HashMap<Character, String> replacement;//init on use only
+
+	/*
+	 * returns a String, with replacements for invisible chars like " " -> "[space]"
+	 * not all chars yet.... adding some more.
+	 */
+	public static String show_invisible(String str) {
+		for(Entry<Character, String> entry : getReplacement().entrySet()) {
+			str = str.replace(entry.getKey() + "", entry.getValue());
+		}
+		return str;
+	}
+
+	public static String replace_char(String s, char ch, int place) {
 		char[] array = s.toCharArray();
 		array[place] = ch;
 		return new String(array);
 	}
 
-	public static String insert(String s, char ch, int place) {
+	public static String insert_char(String s, char ch, int place) {
 		return s.substring(0, place) + ch + s.substring(place);
 	}
 
-	public static String randomString(int length) {
-		String src = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVXYZ-_+";
+	/*
+	 * *Generates a "Random" String with the given source, and the given length
+	 * chars, maybe tow times in output String.
+	 */
+	public static String randomString(int length, String src) {
 		char[] srcarray = src.toCharArray();
 		String out = "";
 		Random rand = new Random(System.currentTimeMillis());
@@ -26,13 +44,20 @@ public class Y_StringTool {
 		return out;
 	}
 
+	/*
+	 * Returns a "Random" String with the given length, and the standart set.
+	 * Chars, can be tow times in the result.
+	 */
+	public static String randomString(int length) {
+		return randomString(length, "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVXYZ-_+");
+	}
+
 	public static String removeKomma(String s) {
 		if(s.endsWith(",")) s = s.substring(0, s.length() -1);
 		return s;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public class IteratingString implements Iterator {
+	public static class IteratingString implements Iterable<Character>, Iterator<Character> {
 
 		String s;
 		int place = -1;
@@ -43,7 +68,7 @@ public class Y_StringTool {
 		}
 
 		@Override
-		public Object next() {
+		public Character next() {
 			place = place+1;
 			return s.charAt(place);
 		}
@@ -55,6 +80,12 @@ public class Y_StringTool {
 
 		public IteratingString(String src) {
 			s = src;
+		}
+
+
+		@Override
+		public Iterator<Character> iterator() {
+			return this;
 		}
 	}
 
@@ -83,5 +114,32 @@ public class Y_StringTool {
 			costs = tmpArr;
 		}
 		return costsPrev[a.length()];
+	}
+
+	/**
+	 * Cuts out an String
+	 * example: cutout("My name is: Johny and i like trains.", "name is: "," "); would return "Johnny" because its between.
+	 * @param source The String
+	 * @param bevore a String contained by the Source and bevore the first cut
+	 * @param after a String after the Second cut
+	 * @return the piece of source between bevore and after
+	 */
+	public static String cutout(String source, String bevore, String after) {
+		source = source.substring(source.indexOf(bevore) + bevore.length());
+		source = source.substring(0,source.indexOf(after));
+		
+		return source;
+	}
+
+	//================private
+	private static HashMap<Character, String> getReplacement() {
+		if(replacement == null) {//init on empty -> save recources!
+			replacement = new HashMap<Character, String>();
+			replacement.put((char) 0 , "[null]");
+			replacement.put((char) 7, "[bell]");
+			replacement.put(' ' , "[space]");
+			//TODO add more
+		}
+		return replacement;
 	}
 }
