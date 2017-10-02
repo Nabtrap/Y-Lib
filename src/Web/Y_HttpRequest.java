@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class Y_HttpRequest {
 	private String cookies = "";
-	private String userAgent = "Mozilla/5.0";
+	private String userAgent = "Mozilla/5.0"; // Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) 
 
 	public String get(String url) throws Exception {
 		URL obj = new URL(url);
@@ -37,10 +37,10 @@ public class Y_HttpRequest {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		//add reuqest header
+		//add request header
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", userAgent);
-		con.setRequestProperty("Cookie", cookies);
+		con.setRequestProperty("Cookie", cookies); //Dang, this cant accept cookies....
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
 		// Send post request

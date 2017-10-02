@@ -39,7 +39,7 @@ public class Y_StringTool {
 		String out = "";
 		Random rand = new Random(System.currentTimeMillis());
 		for(int i = 0; i < length; i++) {
-			out = out + srcarray[rand.nextInt(srcarray.length -1)];
+			out += srcarray[rand.nextInt(srcarray.length -1)];
 		}
 		return out;
 	}
@@ -49,10 +49,10 @@ public class Y_StringTool {
 	 * Chars, can be tow times in the result.
 	 */
 	public static String randomString(int length) {
-		return randomString(length, "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVXYZ-_+");
+		return randomString(length, "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVXYZ-+?!");
 	}
 
-	public static String removeKomma(String s) {
+	public static String removeCommaAtEnd(String s) {
 		if(s.endsWith(",")) s = s.substring(0, s.length() -1);
 		return s;
 	}
@@ -131,7 +131,7 @@ public class Y_StringTool {
 		return source;
 	}
 
-	//================private
+	//================private=================
 	private static HashMap<Character, String> getReplacement() {
 		if(replacement == null) {//init on empty -> save recources!
 			replacement = new HashMap<Character, String>();
